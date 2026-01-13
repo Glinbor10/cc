@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Escapada a Granada</title>
+    <title>Granadita '26</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -475,6 +475,86 @@
         </footer>
 
     </div>
+
+    <audio id="miMusica" loop>
+        <source src="todos_los_besos.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <button id="botonMusica" class="music-btn" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <style>
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary); /* Usa el rojo de tu diseño */
+            color: white;
+            border: 2px solid white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 9999;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            background: var(--accent); /* Cambia a dorado al pasar el ratón */
+        }
+
+        /* Animación cuando suena la música */
+        .music-playing {
+            animation: latido 1.5s infinite;
+            background: #48bb78; /* Verde cuando suena */
+            border-color: #48bb78;
+        }
+
+        @keyframes latido {
+            0% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(72, 187, 120, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(72, 187, 120, 0); }
+        }
+    </style>
+
+    <script>
+        var audio = document.getElementById("miMusica");
+        var boton = document.getElementById("botonMusica");
+        var icono = boton.querySelector("i");
+
+        // Intentar reproducir suavemente al cargar (puede ser bloqueado por el navegador)
+        window.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                boton.classList.add("music-playing");
+                icono.classList.remove("fa-music");
+                icono.classList.add("fa-pause");
+            }
+        }, { once: true }); // Solo intenta una vez al primer clic en cualquier sitio
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                boton.classList.add("music-playing");
+                icono.classList.remove("fa-music");
+                icono.classList.add("fa-pause");
+            } else {
+                audio.pause();
+                boton.classList.remove("music-playing");
+                icono.classList.remove("fa-pause");
+                icono.classList.add("fa-music");
+            }
+        }
+    </script>
 
 </body>
 </html>
